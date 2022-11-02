@@ -9,7 +9,17 @@ import Log from "./log.js";
  */
 const downloadHTML = async url => {
   Log.start(url);
-  const result = await axios.get(url);
+  const result = await axios.get(url, {
+    proxy: {
+      protocol: "http",
+      host: "127.0.0.1",
+      port: 7890
+      // auth: {
+      //   username: "mikeymike",
+      //   password: "rapunz3l"
+      // }
+    }
+  });
   const html = result.data;
   Log.downloaded(url, html);
   return html;

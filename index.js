@@ -1,11 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
-
-console.log("fuck");
-axios.get("https://github.com/SartreShao?tab=repositories").then(res => {
-  console.log("shit");
-  console.log(res);
-});
+import Log from "./log.js";
 
 /**
  * 网页下载器
@@ -13,13 +8,11 @@ axios.get("https://github.com/SartreShao?tab=repositories").then(res => {
  * @returns
  */
 const downloadHTML = async url => {
+  Log.start(url);
   const html = await axios.get(url);
-  console.log(`${url}`);
+  Log.downloaded(url, html);
   return html;
 };
 
-const Log = {
-  start: url => {
-    console.log("start");
-  }
-};
+// 下载网页
+await downloadHTML("https://github.com/SartreShao?tab=repositories");

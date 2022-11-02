@@ -1,40 +1,17 @@
-import axios from "axios";
-import cheerio from "cheerio";
-import Log from "./log.js";
+import Crawler from "./crawler";
+import Parse from "./parse";
 
 /**
- * 网页下载器
- * @param {*} url
+ * 抓取单页 GithubRepo 的数据
+ * @param {*} githubRepoUrl
  * @returns
  */
-const downloadHTML = async url => {
-  Log.start(url);
-  const result = await axios.get(url);
-  const html = result.data;
-  Log.downloaded(url, html);
-  return html;
-};
+const crawlerGithubRepo = async githubRepoUrl => {
+  // 下载网页
+  const html = await Crawler.downloadHTML(githubRepoUrl);
 
-/**
- * 网站解析器
- * @param {*} cheerio
- * @returns
- */
-const parse = (html, parseFunction) => {
-  Log.parse(html);
-  const $ = cheerio.load(html);
-  const result = parseFunction($);
-  Log.success(result);
-  return result;
-};
-
-/**
- * 解析 GithubRepo
- * @param {*} html
- * @returns
- */
-const parseGithubRepo = html =>
-  parse(html, $ => {
+  // 解析网页
+  const result = Crawler.parseHTML(html, $ => {
     const list = $("#user-repositories-list li");
     const repos = [];
     for (let i = 0; i < list.length; i++) {
@@ -53,24 +30,14 @@ const parseGithubRepo = html =>
     return repos;
   });
 
+  return result;
+};
+
 /**
  * 主函数入口
  */
 const main = async () => {
-  try {
-    // 下载网页
-    const html = await downloadHTML(
-      "https://github.com/SartreShao?tab=repositories"
-    );
-
-    // 解析网页
-    const result = parseGithubRepo(html);
-
-    // 输出结果
-    console.log("result", result);
-  } catch (error) {
-    console.log(error);
-  }
+  crawlerGithubRepo("https://github.com/SartreShao?tab=repositories");
 };
 
 main();

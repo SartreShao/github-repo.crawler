@@ -12,10 +12,10 @@ const crawlerGithubRepo = async githubRepoUrl => {
 
   // 解析网页
   const result = Crawler.parseHTML(html, $ => {
-    const list = $("#user-repositories-list li");
+    const liList = $("#user-repositories-list li");
     const repos = [];
-    for (let i = 0; i < list.length; i++) {
-      const li = list.eq(i);
+    for (let i = 0; i < liList.length; i++) {
+      const li = liList.eq(i);
       const repo = {
         repoName: li.find("h3").text().trim(),
         repoUrl: li.find("h3 a").attr("href").trim(),

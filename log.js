@@ -19,19 +19,18 @@ const downloaded = (url, html) => {
 
 /**
  * 开始解析网页
- * @param {*} url
+ * @param {*} html
  */
-const parse = (url, html) => {
-  openLog ? console.log(`start parse html: ${url} `) : {};
+const parse = html => {
+  openLog ? console.log(`start parse html: ${html} `) : {};
 };
 
 /**
  * 解析网站成功
- * @param {*} url
- * @param {*} json
+ * @param {*} result
  */
-const success = (url, result) => {
-  openLog ? console.log(`parse html success: ${url}, result: ${result}`) : {};
+const success = result => {
+  openLog ? console.log(`parse html success:`, result) : {};
 };
 
 export default { start, downloaded, parse, success };

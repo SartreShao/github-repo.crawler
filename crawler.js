@@ -1,6 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
-import Log from "./log";
+import Log from "./log.js";
 
 /**
  * 网页下载器

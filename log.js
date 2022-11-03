@@ -22,7 +22,7 @@ const downloaded = (url, html) => {
  * @param {*} html
  */
 const parse = html => {
-  openLog ? console.log(`start parse html: ${html} `) : {};
+  openLog ? console.log(`start parse html`) : {};
 };
 
 /**

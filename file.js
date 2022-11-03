@@ -31,7 +31,7 @@ const readFile = fileName =>
         console.log(`readFile ${fileName} failure`, error);
         reject(error);
       } else {
-        console.log("readFile ${fileName} success", data.toString());
+        console.log("readFile ${fileName} success");
         resolve(data.toString());
       }
     });
